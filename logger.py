@@ -1,6 +1,6 @@
 class Logger(object):
     ''' Utility class responsible for logging all interactions during the simulation. '''
-    # TODO: Write a test suite for this class to make sure each method is workingas expected.
+    # TODO: Write a test suite for this class to make sure each method is working as expected.
 
     def __init__(self, file_name):
         if file_name[-4:] == ".txt":
@@ -8,8 +8,7 @@ class Logger(object):
         else:
             self.file_name = file_name + ".txt"
 
-    def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
-                       basic_repro_num):
+    def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate, basic_repro_num):
         '''
         The simulation class should use this method immediately to log the specific
         parameters of the simulation as the first line of the file.
@@ -32,13 +31,13 @@ class Logger(object):
         '''
         log = open(self.file_name, 'a')
         if random_person_sick and not did_infect:
-            log.write(f"{person.ID} didn't infect {random_person.ID} because already sick\n")
+            log.write(f"{person._id} didn't infect {random_person._id} because already sick\n")
         elif random_person_vacc and not did_infect:
-            log.write(f"{person.ID} didn't infect {random_person.ID} because vaccinated\n")
+            log.write(f"{person._id} didn't infect {random_person._id} because vaccinated\n")
         elif did_infect:
-            log.write(f"{person.ID} infects {random_person.ID} \n")
+            log.write(f"{person._id} infects {random_person._id} \n")
         else:
-            log.write(f"ERROR: random_person_vacc: {random_person_vacc}; random_person_sick: {random_person_sick}; did_infect: {did_infect}\n")
+            log.write(f"{person._id} didn't infect {random_person._id} \n")
         log.close()
 
 
@@ -51,9 +50,9 @@ class Logger(object):
         '''
         log = open(self.file_name, 'a')
         if did_die_from_infection:
-            log.write(f"{person.ID} died from infection\n")
+            log.write(f"{person._id} died from infection\n")
         else:
-            log.write(f"{person.ID} survived infection.\n")
+            log.write(f"{person._id} survived infection.\n")
         log.close()
 
 
@@ -73,9 +72,9 @@ class Logger(object):
             "Time step {time_step_number} ended, beginning {time_step_number + 1}\n"
         '''
         log = open(self.file_name, 'a')
-        log.write("Time step {time_step_number} ended, beginning {time_step_number + 1}\n")
-        log.write("{people_infected} people were infected this step\n")
-        log.write("{people_died} people died this step\n")
-        log.write("Total Infected: {total_infected} out of {pop_size}\n")
-        log.write("Total Dead: {total_dead} out of {pop_size}\n")
+        log.write(f"Time step {time_step_number} ended, beginning {time_step_number + 1}\n")
+        log.write(f"{people_infected} people were infected this step\n")
+        log.write(f"{people_died} people died this step\n")
+        log.write(f"Total Infected: {total_infected} out of {pop_size}\n")
+        log.write(f"Total Dead: {total_dead} out of {pop_size}\n")
         log.close()
