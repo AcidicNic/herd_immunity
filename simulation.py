@@ -152,7 +152,7 @@ class Simulation(object):
         if random_person.is_vaccinated:
             # nothing happens to random person.
             self.logger.log_interaction(person, random_person, False, True, False)
-        elif not random_person.infection is None:
+        elif random_person.infection is not None:
             # nothing happens to random person.
             self.logger.log_interaction(person, random_person, True, False, False)
         else:
@@ -169,16 +169,16 @@ class Simulation(object):
         and update each Person object with the disease. '''
         self.current_infected = 0
         for index in self.newly_infected:
-            self.alive_infected.append(self.population[index]._id)
+            self.alive_infected.append(index)
             self.population[index].infection = self.virus
             self.current_infected += 1
-            self.total_infected += 1
         self.newly_infected = []
+        self.total_infected += self.current_infected
 
 
 if __name__ == "__main__":
     # params = sys.argv[1:]
-    params = ["HIV", .8, .3, 10000, .1, 50]
+    params = ["HIV", .8, .3, 900, .1, 50]
     virus_name = str(params[0])
     repro_num = float(params[1])
     mortality_rate = float(params[2])
